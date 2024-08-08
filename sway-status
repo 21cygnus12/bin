@@ -1,0 +1,15 @@
+#!/bin/bash
+
+bat1_current_energy=$(cat /sys/class/power_supply/BAT1/energy_now)
+bat2_current_energy=$(cat /sys/class/power_supply/BAT2/energy_now)
+bat1_full_energy=$(cat /sys/class/power_supply/BAT1/energy_full)
+bat2_full_energy=$(cat /sys/class/power_supply/BAT2/energy_full)
+
+current_energy=$((bat1_current_energy + bat2_current_energy))
+full_energy=$((bat1_full_energy + bat2_full_energy))
+
+battery=$((100 * current_energy / full_energy))
+
+datetime=$(date +'%B %d | %-I:%M %p')
+
+echo "$datetime | $battery% "
