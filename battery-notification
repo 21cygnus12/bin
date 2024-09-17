@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Read capacity and level values
+capacity1=$(cat /sys/class/power_supply/BAT1/energy_full)
+capacity2=$(cat /sys/class/power_supply/BAT2/energy_full)
+
+level1=$(cat /sys/class/power_supply/BAT1/energy_now)
+level2=$(cat /sys/class/power_supply/BAT2/energy_now)
+
+# Calculate percentage using awk for floating-point arithmetic
+percent1=$(awk "BEGIN {print ($level1 / $capacity1) * 100}")
+percent2=$(awk "BEGIN {print ($level2 / $capacity2) * 100}")
+
+notify-send "Battery 1: $percent1%" "Battery 2: $percent2%"
